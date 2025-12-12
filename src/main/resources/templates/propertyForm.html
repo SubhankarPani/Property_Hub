@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eee0d3; /* Warm beige background */
+            display: flex;
+            justify-content: center;
+
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* Stack the form and button vertically */
+        }
+
+        .property-form {
+            background: #fff;
+            padding: 20px; /* Reduced padding to create less space */
+            border-radius: 20px;
+             margin-top: 10em;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .property-form h1 {
+            text-align: center;
+            margin-bottom: 15px; /* Reduced margin between header and form */
+            color: #ff6f61; /* Coral color for header */
+        }
+
+        .property-form label {
+            display: block;
+            margin: 8px 0 5px; /* Reduced margin between label and input */
+            font-weight: bold;
+        }
+
+        .property-form input, .property-form select {
+            width: 95%;
+            padding: 8px; /* Reduced padding inside inputs */
+            margin-bottom: 12px; /* Reduced margin between input fields */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .property-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6f61; /* Coral color for button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .property-form button:hover {
+            background-color: #e65b53; /* Darker coral shade for hover */
+        }
+
+        .back-button {
+            padding: 8px 16px; /* Smaller padding for a smaller button */
+            background-color: #4CAF50; /* Green color for the back button */
+            color: white;
+            border: none;
+            margin-bottom:20px;
+            border-radius: 5px;
+            font-size: 14px; /* Smaller font size */
+            cursor: pointer;
+            margin-top: 20px; /* Space between form and button */
+            transition: background 0.3s ease;
+            display: flex; /* Use flexbox to center text */
+            justify-content: center;
+            align-items: center;
+            text-decoration: none; /* Remove underline */
+            margin-left: auto; /* Align it to the center */
+            margin-right: auto; /* Align it to the center */
+        }
+
+        .back-button:hover {
+            background-color: #45a049; /* Darker green shade for hover */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Form for submitting or updating property details -->
+<form class="property-form" th:action="@{${property.id != null} ? '/update-property' : '/submit-property'}" method="post">
+    <h1>Enter Property Details</h1>
+
+    <label for="propertyName">Property Name</label>
+    <input type="text" id="propertyName" name="propertyName" placeholder="Enter property name" required
+           th:value="${property.propertyName}">
+
+    <label for="propertyDescription">Property Description</label>
+    <input type="text" id="propertyDescription" name="propertyDescription" placeholder="Enter property description" required
+           th:value="${property.propertyDescription}">
+
+    <label for="propertyImage">Property Image</label>
+    <input type="file" id="propertyImage" name="propertyImage" accept="image/*">
+
+
+    <label for="propertyType">Property Type</label>
+    <select id="propertyType" name="propertyType" required>
+        <option value="SELL" th:selected="${property.propertyType == 'SELL'}">Sell</option>
+        <option value="RENT" th:selected="${property.propertyType == 'RENT'}">Rent</option>
+    </select>
+
+
+    <label for="price">Price</label>
+    <input type="number" id="price" name="price" placeholder="Enter price" required
+           th:value="${property.price}">
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" placeholder="Enter location" required
+           th:value="${property.location}">
+
+    <label for="ownerName">Owner Name:</label>
+    <input type="text" id="ownerName" name="ownerName" required
+           th:value="${property.ownerName}">
+
+    <label for="ownerEmail">Owner Email:</label>
+    <input type="email" id="ownerEmail" name="ownerEmail" required
+           th:value="${property.ownerEmail}">
+
+
+    <label for="ownerPhone">Owner Phone:</label>
+    <input type="text" id="ownerPhone" name="ownerPhone" required
+           th:value="${property.ownerPhone}">
+
+    <!-- Hidden input for oldPropertyId -->
+    <input type="hidden" id="oldPropertyId" name="oldPropertyId" th:value="${property.id}">
+
+    <!-- Submit or update button based on the property ID -->
+    <button type="submit" th:text="${property.id != null} ? 'Update Property' : 'Submit Property'"></button>
+</form>
+
+<!-- Centered redirect button to seller property list -->
+<a href="/seller-property-list" class="back-button">View Seller Properties</a>
+
+</body>
+</html>

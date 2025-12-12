@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-Up Form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee0d3; /* Fallback background */
+        }
+
+        /* Background container */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('seller-image.jpg') no-repeat center center/cover;
+            opacity: 0.5; /* Adjust opacity here */
+            z-index: -1;
+        }
+
+        .signup-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .signup-form h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff6f61; /* Coral color for header */
+        }
+
+        .signup-form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .signup-form input, .signup-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6f61; /* Coral color for button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .signup-form button:hover {
+            background-color: #e65b53; /* Darker coral shade for hover */
+        }
+
+        .signin-link p {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signin-link a {
+            color: #ff6f61; /* Coral color for link */
+            text-decoration: none;
+        }
+
+        .signin-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+         .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better contrast */
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Background image container -->
+<div class="background"></div>
+<div class="overlay"></div>
+
+<!-- Sign-Up Form -->
+<form class="signup-form" action="/register" method="post">
+    <h1>Sign Up</h1>
+
+    <!-- Display error message if any -->
+    <div th:if="${errorMessage}" class="error-message" th:text="${errorMessage}"></div>
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+    <label for="role">Role</label>
+    <select id="role" name="role" required>
+        <option value="Buyer">Buyer</option>
+        <option value="Seller">Seller</option>
+    </select>
+
+    <button type="submit">Sign Up</button>
+
+    <!-- Link to Sign In page -->
+    <div class="signin-link">
+        <p>Already have an account? <a href="/login">Sign In</a></p>
+    </div>
+</form>
+
+</body>
+</html>

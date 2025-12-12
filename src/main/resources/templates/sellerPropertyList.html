@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Properties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eee0d3;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e65b53;
+        }
+
+        .property-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .property-item {
+            margin: 15px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .property-item h3 {
+            margin: 0;
+            color: #333;
+            flex: 1;
+        }
+
+        .property-item p {
+            margin: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .property-item-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        form button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #d32f2f;
+        }
+
+        .top-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .top-buttons a {
+            text-decoration: none;
+            padding: 0px 15px;
+            background-color: #ff6f61;
+            color: white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .top-buttons a:hover {
+            background-color: #e65b53;
+        }
+
+        .property-list-empty {
+            color: #888;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .property-item {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .property-item-actions {
+                justify-content: flex-start;
+                width: 100%;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .top-buttons {
+                flex-direction: column;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="top-buttons">
+    <a href="/">Home</a>
+    <a href="/logout"><button>Logout</button></a>
+</div>
+<h1>Your Properties</h1>
+<a href="/property-form"><button>Add Property</button></a>
+
+<div th:if="${properties.size() > 0}">
+    <ul class="property-list">
+        <li class="property-item" th:each="property : ${properties}">
+            <div>
+                <h3 th:text="${property.propertyName}"></h3>
+                <p><strong>Description:</strong> <span th:text="${property.propertyDescription}"></span></p>
+                <p><strong>Price:</strong> ₹<span th:text="${property.price}"></span></p>
+                <p><strong>Location:</strong> <span th:text="${property.location}"></span></p>
+                <p><strong>Type:</strong> <span th:text="${property.propertyType}"></span></p>
+            </div>
+            <div class="property-item-actions">
+                <a th:href="@{/modify-property/{id}(id=${property.id})}"><button>Modify</button></a>
+                <form th:action="@{/delete-property/{id}(id=${property.id})}" method="post">
+                    <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+<div th:if="${properties.size() == 0}" class="property-list-empty">
+    <p>You have no properties listed yet.</p>
+</div>
+</body>
+</html>

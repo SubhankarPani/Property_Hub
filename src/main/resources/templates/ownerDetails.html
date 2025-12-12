@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eee0d3; /* Warm beige background */
+            padding: 50px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ff6f61; /* Coral color for header */
+        }
+
+        .owner-details {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin: 0 auto;
+        }
+
+        .owner-details h3 {
+            margin: 10px 0;
+            color: #ff6f61; /* Coral color for owner name */
+        }
+
+        .owner-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #ff6f61; /* Coral color for button */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin:auto;
+            width: 70%;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #e65b53; /* Darker coral shade for hover */
+        }
+    </style>
+</head>
+<body>
+<h1>Owner Details</h1>
+
+<div class="owner-details">
+    <h3>Owner: <span th:text="${ownerName}"></span></h3>
+    <p><strong>Email:</strong> <span th:text="${ownerEmail}"></span></p>
+    <p><strong>Phone:</strong> <span th:text="${ownerPhone}"></span></p>
+    <!-- You can add more owner details here -->
+<br>
+    <a href="#" class="back-button" onclick="window.history.back();">Back to Property Listings</a>
+</div>
+
+</body>
+</html>
